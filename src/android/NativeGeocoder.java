@@ -96,6 +96,9 @@ public class NativeGeocoder extends CordovaPlugin {
                     Address address = geoResults.get(0);
 
                     JSONObject coordinates = new JSONObject();
+                    coordinates.put("locality", address.getLocality());
+                    coordinates.put("country", address.getCountryName());
+                    coordinates.put("countryCode", address.getCountryCode());
                     coordinates.put("latitude", address.getLatitude());
                     coordinates.put("longitude", address.getLongitude());
 
