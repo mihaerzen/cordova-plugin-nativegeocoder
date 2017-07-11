@@ -57,15 +57,13 @@ public class NativeGeocoder extends CordovaPlugin {
             List<Address> geoResults = geocoder.getFromLocation(latitude, longitude, 1);
             if (geoResults.size() > 0) {
                 Address address = geoResults.get(0);
-                
+
                 JSONObject resultObj = new JSONObject();
-                resultObj.put("street", address.getThoroughfare());
-                resultObj.put("houseNumber", address.getSubThoroughfare());
-                resultObj.put("postalCode", address.getPostalCode());
-                resultObj.put("city", address.getLocality());
-                resultObj.put("district", address.getSubLocality());
-                resultObj.put("countryName", address.getCountryName());
+                resultObj.put("locality", address.getLocality());
+                resultObj.put("country", address.getCountryName());
                 resultObj.put("countryCode", address.getCountryCode());
+                resultObj.put("latitude", address.getLatitude());
+                resultObj.put("longitude", address.getLongitude());
 
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, resultObj));
             } else {
@@ -95,14 +93,14 @@ public class NativeGeocoder extends CordovaPlugin {
                 if (geoResults.size()>0) {
                     Address address = geoResults.get(0);
 
-                    JSONObject coordinates = new JSONObject();
-                    coordinates.put("locality", address.getLocality());
-                    coordinates.put("country", address.getCountryName());
-                    coordinates.put("countryCode", address.getCountryCode());
-                    coordinates.put("latitude", address.getLatitude());
-                    coordinates.put("longitude", address.getLongitude());
+                    JSONObject resultObj = new JSONObject();
+                    resultObj.put("locality", address.getLocality());
+                    resultObj.put("country", address.getCountryName());
+                    resultObj.put("countryCode", address.getCountryCode());
+                    resultObj.put("latitude", address.getLatitude());
+                    resultObj.put("longitude", address.getLongitude());
 
-                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, coordinates));
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, resultObj));
                 } else {
                     PluginResult r = new PluginResult(PluginResult.Status.ERROR, "Cannot get a location.");
                     callbackContext.sendPluginResult(r);
